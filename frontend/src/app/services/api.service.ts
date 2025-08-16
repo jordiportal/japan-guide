@@ -13,6 +13,7 @@ export interface Place {
   latitude: number;
   longitude: number;
   image_url?: string;
+  tags?: { id: number; name: string; color: string }[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -33,6 +34,10 @@ export class ApiService {
 
   getPlace(id: number): Observable<Place> {
     return this.http.get<Place>(`${this.base}/places/${id}`);
+  }
+
+  getTags(): Observable<{ id: number; name: string; color: string }[]> {
+    return this.http.get<{ id: number; name: string; color: string }[]>(`${this.base}/tags`);
   }
 }
 

@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { db, initializeSchema, all, get } from './db.js';
+import { db, initializeSchema, all, get, run } from './db.js';
 
 const app = express();
 const corsOptions = {
@@ -41,14 +41,15 @@ app.get('/api/folders', async (req, res) => {
 
 app.get('/api/places', async (req, res) => {
   try {
-    const { folderId, q } = req.query;
+    const { folderId, q, tag } = req.query;
     const params = [];
-    let sql = 'SELECT * FROM places';
+    let sql = 'SELECT p.* FROM places p';
     const where = [];
-    if (folderId) { where.push('folder_id = ?'); params.push(folderId); }
-    if (q) { where.push('(name_ca LIKE ? OR name_ja LIKE ? OR description_ca LIKE ?)'); params.push(`%${q}%`, `%${q}%`, `%${q}%`); }
+    if (tag) { sql += ' JOIN place_tags pt ON pt.place_id = p.id JOIN tags t ON t.id = pt.tag_id'; where.push('t.name = ?'); params.push(tag); }
+    if (folderId) { where.push('p.folder_id = ?'); params.push(folderId); }
+    if (q) { where.push('(p.name_ca LIKE ? OR p.name_ja LIKE ? OR p.description_ca LIKE ?)'); params.push(`%${q}%`, `%${q}%`, `%${q}%`); }
     if (where.length) sql += ' WHERE ' + where.join(' AND ');
-    sql += ' ORDER BY name_ca';
+    sql += ' ORDER BY p.name_ca';
     const rows = await all(db, sql, params);
     res.json(rows);
   } catch (e) {
@@ -60,7 +61,31 @@ app.get('/api/places/:id', async (req, res) => {
   try {
     const row = await get(db, 'SELECT * FROM places WHERE id = ?', [req.params.id]);
     if (!row) return res.status(404).json({ error: 'Not found' });
-    res.json(row);
+    const tags = await all(db, `SELECT t.* FROM tags t JOIN place_tags pt ON pt.tag_id = t.id WHERE pt.place_id = ? ORDER BY t.name`, [req.params.id]);
+    res.json({ ...row, tags });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.get('/api/tags', async (req, res) => {
+  try {
+    const rows = await all(db, 'SELECT * FROM tags ORDER BY name');
+    res.json(rows);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.post('/api/places/:id/tags/:tagName', async (req, res) => {
+  try {
+    const tagName = decodeURIComponent(req.params.tagName);
+    const color = req.body?.color || '#616161';
+    const placeId = Number(req.params.id);
+    const tag = await get(db, 'SELECT id FROM tags WHERE name = ?', [tagName]);
+    const tagId = tag?.id ? tag.id : (await run(db, 'INSERT INTO tags(name, color) VALUES (?, ?)', [tagName, color])).lastID;
+    await run(db, 'INSERT OR IGNORE INTO place_tags(place_id, tag_id) VALUES (?, ?)', [placeId, tagId]);
+    res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }

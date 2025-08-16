@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import xml2js from 'xml2js';
 import sanitizeHtml from 'sanitize-html';
-import { db, initializeSchema, run, get } from './db.js';
+import { db, initializeSchema, run, get, all } from './db.js';
 import { normalizeCatalanText, splitJaFromCa, ensureTitle } from './utils/text.js';
 import { findImageForPlace } from './utils/images.js';
 
@@ -36,11 +36,23 @@ async function importPlacemark(folderId, placemark) {
     image_url = await findImageForPlace({ name_ca, name_ja });
   } catch {}
 
-  await run(db,
+  const result = await run(db,
     `INSERT INTO places (name_ca, name_ja, description_ca, description_ja, folder_id, latitude, longitude, image_url, source)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [name_ca, name_ja, descriptionCa, '', folderId, lat, lng, image_url, 'kml']
   );
+
+  // Auto tagging simple basado en nombre/descripcion
+  const lower = `${name_ca} ${descriptionCa}`.toLowerCase();
+  const tagsToAdd = new Set();
+  if (/restaura|sushi|menjar|shabu|kitchen|café|cafè|caf\s/i.test(lower)) tagsToAdd.add('restaurants');
+  if (/parc|joc|infantil|zoo|museu del joguet|teamlab|kids|disney|amusement|atraccions/i.test(lower)) tagsToAdd.add('activitats infantils');
+  for (const tagName of tagsToAdd) {
+    const color = tagName === 'restaurants' ? '#D32F2F' : tagName === 'activitats infantils' ? '#1976D2' : '#616161';
+    const tag = await get(db, 'SELECT id FROM tags WHERE name = ?', [tagName]);
+    const tagId = tag?.id ? tag.id : (await run(db, 'INSERT INTO tags(name, color) VALUES (?, ?)', [tagName, color])).lastID;
+    await run(db, 'INSERT OR IGNORE INTO place_tags(place_id, tag_id) VALUES (?, ?)', [result.lastID, tagId]);
+  }
 }
 
 export async function importKml(filePath) {

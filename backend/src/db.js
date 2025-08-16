@@ -40,6 +40,22 @@ export function initializeSchema() {
 
     db.run(`CREATE INDEX IF NOT EXISTS idx_places_folder ON places(folder_id);`);
     db.run(`CREATE INDEX IF NOT EXISTS idx_places_name_ca ON places(name_ca);`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS tags (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      color TEXT NOT NULL
+    );`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS place_tags (
+      place_id INTEGER NOT NULL,
+      tag_id INTEGER NOT NULL,
+      PRIMARY KEY(place_id, tag_id),
+      FOREIGN KEY(place_id) REFERENCES places(id) ON DELETE CASCADE,
+      FOREIGN KEY(tag_id) REFERENCES tags(id) ON DELETE CASCADE
+    );`);
+
+    db.run(`CREATE INDEX IF NOT EXISTS idx_place_tags_tag ON place_tags(tag_id);`);
   });
 }
 

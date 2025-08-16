@@ -42,6 +42,13 @@ import { MatIconModule } from '@angular/material/icon';
       </mat-chip-listbox>
     </div>
 
+    <div class="tags">
+      <div class="tags-scroll">
+        <button class="tag" [class.active]="!selectedTag" (click)="selectTag(undefined)">Totes</button>
+        <button class="tag" *ngFor="let t of tags()" [style.background]="selectedTag===t.name ? t.color : '#eee'" [style.color]="selectedTag===t.name ? '#fff' : '#333'" (click)="selectTag(t.name)">{{ t.name }}</button>
+      </div>
+    </div>
+
     <div class="grid">
       <a class="card" *ngFor="let p of places()" [routerLink]="['/place', p.id]">
         <div class="image" [class.placeholder]="!p.image_url">
@@ -67,6 +74,10 @@ import { MatIconModule } from '@angular/material/icon';
     .clear { background: transparent; border: 0; cursor: pointer; }
     .folders { padding: 0 0.5rem 0.5rem; overflow-x: auto; }
     .chips { display: flex; gap: 0.25rem; padding: 0 0.25rem; }
+    .tags { padding: 0 0.5rem 0.25rem; }
+    .tags-scroll { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0 0.25rem; }
+    .tag { border: 0; padding: 6px 10px; border-radius: 999px; background: #eee; color: #333; font-size: 12px; }
+    .tag.active { background: #333; color: #fff; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; padding: 0.5rem; }
     @media (min-width: 600px) { .grid { grid-template-columns: repeat(3, 1fr); } }
     @media (min-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); } }
@@ -84,15 +95,22 @@ export class ListPageComponent {
   private api = inject(ApiService);
   folders = signal<Folder[]>([]);
   places = signal<Place[]>([]);
+  tags = signal<{ id: number; name: string; color: string }[]>([]);
   selectedFolderId?: number;
   query = '';
+  selectedTag?: string;
 
   constructor() {
     this.api.getFolders().subscribe(f => this.folders.set(f));
+    this.api.getTags().subscribe(t => this.tags.set(t));
     this.refresh();
   }
 
   refresh() {
+    const params = new URLSearchParams();
+    if (this.selectedFolderId) params.set('folderId', String(this.selectedFolderId));
+    if (this.query) params.set('q', this.query);
+    if (this.selectedTag) params.set('tag', this.selectedTag);
     this.api.getPlaces(this.selectedFolderId, this.query).subscribe(p => this.places.set(p));
   }
 
@@ -104,6 +122,11 @@ export class ListPageComponent {
 
   selectFolder(id: number | undefined) {
     this.selectedFolderId = id;
+    this.refresh();
+  }
+
+  selectTag(name?: string) {
+    this.selectedTag = name;
     this.refresh();
   }
 }
