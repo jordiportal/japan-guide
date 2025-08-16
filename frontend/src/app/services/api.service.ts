@@ -1,0 +1,39 @@
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+
+export interface Folder { id: number; name: string; }
+export interface Place {
+  id: number;
+  name_ca: string;
+  name_ja?: string;
+  description_ca?: string;
+  description_ja?: string;
+  folder_id?: number;
+  latitude: number;
+  longitude: number;
+  image_url?: string;
+}
+
+@Injectable({ providedIn: 'root' })
+export class ApiService {
+  private http = inject(HttpClient);
+  private base = 'http://localhost:3000/api';
+
+  getFolders(): Observable<Folder[]> {
+    return this.http.get<Folder[]>(`${this.base}/folders`);
+  }
+
+  getPlaces(folderId?: number, q?: string): Observable<Place[]> {
+    const params: any = {};
+    if (folderId) params.folderId = folderId;
+    if (q) params.q = q;
+    return this.http.get<Place[]>(`${this.base}/places`, { params });
+  }
+
+  getPlace(id: number): Observable<Place> {
+    return this.http.get<Place>(`${this.base}/places/${id}`);
+  }
+}
+
+

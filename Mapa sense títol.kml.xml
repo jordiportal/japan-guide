@@ -1,0 +1,1456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Mapa sense títol</name>
+    <description/>
+    <Style id="icon-1899-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-0288D1-nodesc-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-nodesc-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Yahiro (Sumida)</name>
+      <Placemark>
+        <name>7-Eleven Sumida</name>
+        <description><![CDATA[Descripció: Botiga de conveniència amb caixer i menjar ràpid<br>Zona: Yahiro (Sumida)<br>Tipus: Serveis<br>Lat: 35.71466<br>Lng: 139.82195]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.82195,35.71466,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sumida Park</name>
+        <description><![CDATA[Descripció: Parc vora riu amb àrees de joc i pícnic<br>Zona: Yahiro (Sumida)<br>Tipus: Parc<br>Lat: 35.71256<br>Lng: 139.8015]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.8015,35.71256,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Whale Playground</name>
+        <description><![CDATA[Descripció: Zona de jocs infantils amb forma de balena<br>Zona: Yahiro (Sumida)<br>Tipus: Parc<br>Lat: 35.7134<br>Lng: 139.80532]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.80532,35.7134,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Casa</name>
+        <description><![CDATA[Descripció: Casa a sumida<br>Zona: Yahiro (Sumida)<br>Tipus: Apartament<br>Lat: 35.7248203<br>Lng: 139.8315312]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.831531,35.72482,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Azumanishi Park</name>
+        <description><![CDATA[Descripció: Parc infantil aprop de l'apartament<br>Zona: Yahiro (Sumida)<br>Tipus: Parc<br>Lat: 35.7242819<br>Lng: 139.8306005]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.8306,35.724282,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Big-A Sumida Yahiro</name>
+        <description><![CDATA[Descripció: Supermercat aprop de l'apartament<br>Zona:<br>Tipus:<br>Lat: 35.724397<br>Lng: 139.8301542]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.830154,35.724397,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Yahiro Azuma Park</name>
+        <description><![CDATA[Descripció: Parc infantil<br>Zona: Yahiro (Sumida)<br>Tipus: Parc<br>Lat: 35.7237348<br>Lng: 139.8282884]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.828288,35.723735,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>50Ban</name>
+        <description><![CDATA[Descripció: Restaurant casolà a prop de l'apartament<br>Zona: Yahiro (Sumida)<br>Tipus: Restaurant<br>Lat: 35.7252843<br>Lng: 139.8287685]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.828768,35.725284,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kozeni Sushi</name>
+        <description><![CDATA[Descripció: Sushi per emportar<br>Zona: Yahiro (Sumida)<br>Tipus: Restaurant<br>Lat: 35.7257036<br>Lng: 139.8286535]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.828654,35.725704,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Akitaya</name>
+        <description><![CDATA[Descripció: Menjar per emportar<br>Zona: Yahiro (Sumida)<br>Tipus: Restaurant<br>Lat: 35.7249403<br>Lng: 139.8291466]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.829147,35.72494,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Isana</name>
+        <description><![CDATA[Descripció: Restaurant tradicional<br>Zona: Yahiro (Sumida)<br>Tipus: Restaurant<br>Lat: 35.7230794<br>Lng: 139.8305295]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.83053,35.723079,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>油田カフェ</name>
+        <description><![CDATA[Descripció: Cafè amb croissants i pastissets<br>Zona: Yahiro (Sumida)<br>Tipus: Cafè<br>Lat: 35.7202548<br>Lng: 139.8302109]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.830211,35.720255,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ゴハンとカフェとザッカmineichi</name>
+        <description><![CDATA[Descripció: Kakigoris, pastes i menjar per emportar<br>Zona: Yahiro (Sumida)<br>Tipus: Cafè<br>Lat: 35.7227177<br>Lng: 139.8308652]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.830865,35.722718,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>FamilyMart Yahiro 6-Chome Shop</name>
+        <description><![CDATA[Descripció: Super 24/7 amb males ressenyes<br>Zona: Yahiro (Sumida)<br>Tipus: Supermercat<br>Lat: 35.72544<br>Lng: 139.8291373]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.829137,35.72544,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>7-Eleven Sumida Yahiro 5-chōme</name>
+        <description><![CDATA[Descripció: Supermercat 24/7<br>Zona: Yahiro (Sumida)<br>Tipus: Supermercat<br>Lat: 35.7239136<br>Lng: 139.8270272]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.827027,35.723914,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Yahiro Park</name>
+        <description><![CDATA[Descripció: Parc amb jocs per nens de totes les edats<br>Zona: Yahiro (Sumida)<br>Tipus: Parc<br>Lat: 35.725612<br>Lng: 139.8248622]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.824862,35.725612,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Acuario de Sumida</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.809586,35.70993,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Yamadaira</name>
+        <description><![CDATA[Descripció: Restaurant, shabu shabu<br>Zona: Yahiro (Sumida)<br>Tipus: Restaurant<br>Lat: 35.7208856<br>Lng: 139.8259938]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.825994,35.720886,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ito Yokado Hikifune</name>
+        <description><![CDATA[Descripció: Supermercat gran<br>Zona: Yahiro (Sumida)<br>Tipus: Supermercat<br>Lat: 35.7174508<br>Lng: 139.8177834]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.817783,35.717451,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Shibamata</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.8777675,35.7559398,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Tokyo</name>
+      <Placemark>
+        <name>Tokyo Toy Museum</name>
+        <description><![CDATA[Descripció: Museu del joguet amb àrees de joc i exposicions<br>Zona: Tokyo - Shinjuku<br>Tipus: Museu / Infantil<br>Lat: 35.69297<br>Lng: 139.71747]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.71747,35.69297,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kiddy Land Harajuku</name>
+        <description><![CDATA[Descripció: Botiga de joguines i personatges infantils<br>Zona: Tokyo - Harajuku<br>Tipus: Botiga<br>Lat: 35.66967<br>Lng: 139.70557]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.70557,35.66967,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Odaiba Seaside Park</name>
+        <description><![CDATA[Descripció: Platja urbana i zona de jocs amb vistes al Rainbow Bridge<br>Zona: Tokyo - Odaiba<br>Tipus: Parc / Vistes<br>Lat: 35.62866<br>Lng: 139.77816]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.77816,35.62866,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ghibli Museum</name>
+        <description><![CDATA[Descripció: Museu temàtic del món Studio Ghibli<br>Zona: Tokyo - Mitaka<br>Tipus: Museu / Infantil<br>Lat: 35.69617<br>Lng: 139.57031]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.57031,35.69617,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Akihabara</name>
+        <description><![CDATA[Descripció: Barri d'electrònica, manga i cultura pop<br>Zona: Tokyo - Akihabara<br>Tipus: Passeig / Compres<br>Lat: 35.69839<br>Lng: 139.77306]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.77306,35.69839,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tokyo Skytree</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.8107,35.710063,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tokyo Skytree Observation Deck</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat: 35.7102266<br>Lng: 139.810694]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.810694,35.710227,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ソラマチひろば</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.81154,35.709954,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pokémon Center Skytree Town Solamachi East Yard 4th floor</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.812612,35.710345,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kirby Café</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.811902,35.710376,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Donguri Kyowakoku</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.812815,35.710824,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Santuario Takagi</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.815216,35.714769,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sensō-ji</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.796655,35.714765,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Asakusa Hanayashiki</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.794877,35.715461,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Portón Kaminarimon</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.796366,35.711116,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Puerta Hozomon</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.796633,35.713933,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kidzania Tokyo</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.791354,35.656345,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>teamLab Planets TOKIO DMM</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.789774,35.649121,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ueno Zoo</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.772882,35.716015,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Estanque Shinobazu</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.772373,35.71024,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ueno Ameyoko Shopping Street</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.774547,35.710058,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sanshirō Pond</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.762006,35.712181,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Edogawa City Nature Zoo</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.858402,35.671049,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Recreational Park Kids Area</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.858328,35.662839,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gyosen Park</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.858014,35.671568,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tokyo Disneyland</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.880394,35.632896,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tokyo DisneySea</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.885078,35.626711,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>東武博物館</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.819163,35.72441,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mukojima-Hyakkaen Gardens</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.815601,35.724214,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ciudad Electrónica de Akihabara</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.77138,35.699718,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Museo de Historia del Suministro de Agua de Tokio</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.760492,35.703338,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Jardín Koishikawa Kōrakuen</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.749272,35.705691,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Asobōno!</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.754668,35.703908,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tokyo Dome City Attractions</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.754251,35.704369,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gallery AaMo</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.754066,35.70387,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kōkyo</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.7528,35.685175,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kokyo Gaien National Garden</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.758312,35.680117,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Torre de Tokio</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.745433,35.65858,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Parque Shiba</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.748012,35.655145,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Templo Zojoji</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.748293,35.657479,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>teamLab Borderless: MORI Building DIGITAL ART MUSEUM</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.743267,35.662069,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Parque Yoyogi</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.694966,35.670065,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Shibuya Haru-no-Ogawa Play Park</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.690838,35.671374,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Shibuya Scramble Crossing</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.70056,35.659482,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nabeshima Shōtō Park</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.69117,35.659778,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Museo Arquitectónico al Aire Libre de Edo-Tokio</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.512543,35.715572,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cup Noodles Museum</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.638867,35.455476,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Negishi Natsukashi Park Former Yanagishita Residence</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.631405,35.418762,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Shirohige’s Cream Puff Factory - Kichijoji</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.5825677,35.7014532,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Templo Gōtokuji</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.647481,35.6488124,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Todoroki Ravine Park</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.6462372,35.6038976,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>文京区立音羽児童遊園</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.7295992,35.7130369,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Jardín Koishikawa Kōrakuen</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.7492718,35.7056913,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Excursions curtes (≤ 1 dia)</name>
+      <Placemark>
+        <name>Museu a l’aire lliure de Hakone</name>
+        <description><![CDATA[Descripció: Escultures i zona familiar en entorn natural<br>Zona: Excursions curtes - Hakone<br>Tipus: Museu a l'aire lliure<br>Lat: 35.25053<br>Lng: 139.04843]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.04843,35.25053,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Creuer Llac Ashi</name>
+        <description><![CDATA[Descripció: Passeig amb vaixell pirata pel llac amb vista al Fuji<br>Zona: Excursions curtes - Hakone<br>Tipus: Activitat exterior<br>Lat: 35.18817<br>Lng: 139.0233]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.0233,35.18817,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gran Buda de Kamakura</name>
+        <description><![CDATA[Descripció: Estàtua gegant visitable<br>Zona: Excursions curtes - Kamakura<br>Tipus: Temple / Monument<br>Lat: 35.31668<br>Lng: 139.53563]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.53563,35.31668,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Toshogu Shrine</name>
+        <description><![CDATA[Descripció: Temple daurat envoltat de bosc<br>Zona: Excursions curtes - Nikkō<br>Tipus: Temple / Patrimoni<br>Lat: 36.75782<br>Lng: 139.59905]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.59905,36.75782,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Yokohama Chinatown</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.646091,35.443446,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hikawa-maru Yokohama</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            139.651313,35.446666,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nagano</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            138.1950371,36.6485258,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Obuse</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            138.312086,36.6976499,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Noboribetsu Jigokudani Valley</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            141.1486603,42.4976231,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Yudanaka Station</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            138.4147279,36.7416383,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kinugawa Onsen</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.7158059,36.8238284,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>奥日光湯元温泉源泉</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.4251316,36.8082416,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mount Mitake</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.1495027,35.7829416,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Monte Takao</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            139.2437385,35.6254126,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Usui Pass Railway Heritage Park</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            138.733669,36.336433,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Excursions llargues - Aomori</name>
+      <Placemark>
+        <name>Nebuta Museum WA-RASSE</name>
+        <description><![CDATA[Descripció: Museu de festivals tradicionals amb llanternes gegants<br>Zona: Excursions llargues - Aomori<br>Tipus: Museu / Cultural<br>Lat: 40.82726<br>Lng: 140.73563]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            140.73563,40.82726,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Oirase Stream Choshi Falls</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            140.9745,40.6021,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lake Towada Cruise (Yasumiya)</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            140.8824,40.4558,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Castillo Hirosaki</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.4636654,40.6079159,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Inakadate Village Rice Field Art Venue 2</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.5744373,40.6338037,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tsugaru-han Neputa-mura Village</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.4696017,40.6111536,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hirosaki City Apple Park</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.442092,40.5892587,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hirosaki Apple Park Picnic Square</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.4430074,40.5885154,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ex-Residencia de la Familia Osanai</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.4424469,40.5883574,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>株式会社工藤農園 ブルーベリー園</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.4404745,40.5878116,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kitchen FuwaFuwa Omurice Restaurant</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.452108,40.5812983,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Aomori Bank Memorial Museum</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.4685451,40.6028703,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Former Hirosaki City Library</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.4658083,40.6027075,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hirosaki Tenmangu</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.4595599,40.6015184,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Seikan Train Ferry Memorial Ship Hakkōda-maru</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.7362873,40.8315295,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Showa Daibutsu Buddha</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.8184483,40.8221012,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kondō main hall</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.8153983,40.8208527,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Water sculptures</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.817428,40.821547,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>New Aomori Sports Park</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.8442464,40.8402453,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>新青森県総合運動公園 遊具広場</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.8423682,40.8412319,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gappo Park</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.7791627,40.8301251,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gappo Park Beach</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.7791813,40.8315243,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Excursions llargues - Kanazawa</name>
+      <Placemark>
+        <name>Jardí Kenrokuen</name>
+        <description><![CDATA[Descripció: Un dels tres grans jardins del Japó<br>Zona: Excursions llargues - Kanazawa<br>Tipus: Jardí tradicional<br>Lat: 36.56102<br>Lng: 136.66252]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            136.66252,36.56102,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Omicho Market</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            136.656,36.5749,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Higashi Chaya District</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            136.6662,36.5707,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>21st Century Museum of Contemporary Art</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            136.6569,36.5613,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kanazawa Castle Park</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            136.6572,36.5611,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Old Town Sanmachi-suji</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.2553,36.1456,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Takayama-jinya</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.253,36.1398,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hida Folk Village</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.236,36.1352,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Museo Retro Takayama</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            137.2598451,36.1391025,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nakasendo Halfway Point</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            137.7390313,35.8681137,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Excursions llargues - Matsumoto</name>
+      <Placemark>
+        <name>Castell de Matsumoto</name>
+        <description><![CDATA[Descripció: Castell original amb estructura de fusta<br>Zona: Excursions llargues - Matsumoto<br>Tipus: Castell<br>Lat: 36.23806<br>Lng: 137.96964]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.96964,36.23806,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Matsumoto City Mountain and Nature Museum</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.953275,36.260229,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Matsumoto Alps park birds and small animals of the forest management office</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.954959,36.262692,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Onyado Nono Matsumoto</name>
+        <description><![CDATA[Descripció:<br>Zona:<br>Tipus:<br>Lat:<br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.966858,36.22788,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Daio Wasabi Farm</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.8944,36.3297,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kiso-Fukushima Town</name>
+        <description><![CDATA[descripció: <br>Descripció: <br>Zona: <br>Tipus: <br>Lat: <br>Lng:]]></description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            137.6933,35.8451,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Former Kaichi School</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            137.9685095,36.2430073,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Narai-juku</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            137.8145375,35.9682997,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>旭の滝</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            137.7698606,35.8971638,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tsumago-juku</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            137.5956667,35.5775876,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Magome-juku</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            137.566011,35.525621,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fukushima-juku</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            137.6963526,35.8490818,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Excursions llargues - Akita</name>
+      <Placemark>
+        <name>Kakunodate Samurai District</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.5636,39.5892,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lake Tazawa</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.811,39.7089,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nyūtō Onsen (Tsurunoyu)</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.8303,39.8545,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kubota Castle Front Gate</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.1241944,39.7211359,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>亀田城（Kameda Castle）</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.0867326,39.4993463,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Casa samurai Iwahashi</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.562191,39.5987193,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Casa samurai Odano</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.5626942,39.5969996,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Casa samurai Aoyagi</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            140.5617895,39.6005177,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
