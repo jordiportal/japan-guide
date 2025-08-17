@@ -40,6 +40,16 @@ export class ApiService {
   getTags(): Observable<{ id: number; name: string; color: string }[]> {
     return this.http.get<{ id: number; name: string; color: string }[]>(`${this.base}/tags`);
   }
+
+  updatePlace(id: number, data: { name_ca: string; description_ca?: string }) {
+    return this.http.put(`${this.base}/places/${id}`, data);
+  }
+
+  uploadImage(id: number, file: File) {
+    const form = new FormData();
+    form.append('image', file);
+    return this.http.post<{ ok: boolean; image: string }>(`${this.base}/places/${id}/image`, form);
+  }
 }
 
 

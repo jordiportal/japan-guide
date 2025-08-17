@@ -4,6 +4,8 @@ import cors from 'cors';
 import { db, initializeSchema, all, get, run } from './db.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import multer from 'multer';
+import fs from 'fs';
 
 const app = express();
 app.set('trust proxy', true);
@@ -22,6 +24,16 @@ initializeSchema();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/media', express.static(path.resolve(__dirname, '../../data/images')));
+const uploadDir = path.resolve(__dirname, '../../data/images');
+fs.mkdirSync(uploadDir, { recursive: true });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) { cb(null, uploadDir); },
+  filename: function (req, file, cb) {
+    const ext = (file.originalname.split('.').pop() || 'jpg').toLowerCase();
+    cb(null, `place_${req.params.id}.${ext}`);
+  }
+});
+const upload = multer({ storage });
 
 app.get('/__health', (req, res) => {
   res.json({ ok: true, cwd: process.cwd() });
@@ -82,6 +94,29 @@ app.get('/api/places/:id', async (req, res) => {
   }
 });
 
+app.put('/api/places/:id', async (req, res) => {
+  try {
+    const { name_ca, description_ca } = req.body || {};
+    if (!name_ca) return res.status(400).json({ error: 'name_ca required' });
+    await run(db, `UPDATE places SET name_ca = ?, description_ca = ?, updated_at = datetime('now') WHERE id = ?`, [name_ca, description_ca || '', req.params.id]);
+    const row = await get(db, 'SELECT * FROM places WHERE id = ?', [req.params.id]);
+    res.json(row);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.post('/api/places/:id/image', upload.single('image'), async (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) return res.status(400).json({ error: 'file required' });
+    await run(db, `UPDATE places SET local_image_path = ?, updated_at = datetime('now') WHERE id = ?`, [file.path, req.params.id]);
+    const base = `${req.protocol}://${req.get('host')}`;
+    res.json({ ok: true, image: `${base}/media/${path.basename(file.path)}` });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 app.get('/api/tags', async (req, res) => {
   try {
     const rows = await all(db, 'SELECT * FROM tags ORDER BY name');
