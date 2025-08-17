@@ -14,6 +14,7 @@ export interface Place {
   longitude: number;
   image_url?: string;
   tags?: { id: number; name: string; color: string }[];
+  image?: string;
 }
 
 @Injectable({ providedIn: 'root' })

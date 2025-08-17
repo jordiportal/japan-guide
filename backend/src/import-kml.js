@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import xml2js from 'xml2js';
@@ -36,22 +37,32 @@ async function importPlacemark(folderId, placemark) {
     image_url = await findImageForPlace({ name_ca, name_ja });
   } catch {}
 
-  const result = await run(db,
-    `INSERT INTO places (name_ca, name_ja, description_ca, description_ja, folder_id, latitude, longitude, image_url, source)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [name_ca, name_ja, descriptionCa, '', folderId, lat, lng, image_url, 'kml']
-  );
+  // Upsert por carpeta+nombre+coordenadas (tolerancia básica por redondeo)
+  const existing = await get(db, `SELECT id FROM places WHERE folder_id = ? AND name_ca = ? AND ABS(latitude - ?) < 0.00001 AND ABS(longitude - ?) < 0.00001`, [folderId, name_ca, lat, lng]);
+  let placeId;
+  if (existing?.id) {
+    placeId = existing.id;
+    await run(db, `UPDATE places SET name_ja = ?, description_ca = ?, updated_at = datetime('now'), image_url = COALESCE(?, image_url) WHERE id = ?`, [name_ja, descriptionCa, image_url, placeId]);
+  } else {
+    const inserted = await run(db,
+      `INSERT INTO places (name_ca, name_ja, description_ca, description_ja, folder_id, latitude, longitude, image_url, source)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [name_ca, name_ja, descriptionCa, '', folderId, lat, lng, image_url, 'kml']
+    );
+    placeId = inserted.lastID;
+  }
 
   // Auto tagging simple basado en nombre/descripcion
   const lower = `${name_ca} ${descriptionCa}`.toLowerCase();
   const tagsToAdd = new Set();
   if (/restaura|sushi|menjar|shabu|kitchen|café|cafè|caf\s/i.test(lower)) tagsToAdd.add('restaurants');
   if (/parc|joc|infantil|zoo|museu del joguet|teamlab|kids|disney|amusement|atraccions/i.test(lower)) tagsToAdd.add('activitats infantils');
+  // Sustituir etiquetas calculadas (eliminar previas auto y volver a añadir)
   for (const tagName of tagsToAdd) {
     const color = tagName === 'restaurants' ? '#D32F2F' : tagName === 'activitats infantils' ? '#1976D2' : '#616161';
     const tag = await get(db, 'SELECT id FROM tags WHERE name = ?', [tagName]);
     const tagId = tag?.id ? tag.id : (await run(db, 'INSERT INTO tags(name, color) VALUES (?, ?)', [tagName, color])).lastID;
-    await run(db, 'INSERT OR IGNORE INTO place_tags(place_id, tag_id) VALUES (?, ?)', [result.lastID, tagId]);
+    await run(db, 'INSERT OR IGNORE INTO place_tags(place_id, tag_id) VALUES (?, ?)', [placeId, tagId]);
   }
 }
 

@@ -12,7 +12,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   <div class="container" *ngIf="place() as p">
     <a routerLink="/">← Tornar</a>
     <h1>{{ p.name_ca }} <small *ngIf="p.name_ja">（{{ p.name_ja }}）</small></h1>
-    <img *ngIf="p.image_url" [src]="p.image_url" class="hero" alt="{{p.name_ca}}" />
+    <img *ngIf="p.image || p.image_url" [src]="p.image || p.image_url" class="hero" alt="{{p.name_ca}}" />
     <p *ngIf="p.description_ca">{{ p.description_ca }}</p>
     <p class="coords">Lat {{ p.latitude }}, Lng {{ p.longitude }}</p>
     <div class="map">
@@ -24,7 +24,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   `,
   styles: [`
     .container { padding: 1rem; max-width: 900px; margin: 0 auto; }
-    .hero { width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px; margin: 1rem 0; }
+    .hero { width: 100%; max-height: 400px; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; margin: 1rem 0; display: block; }
     .coords { color: #666; }
   `]
 })

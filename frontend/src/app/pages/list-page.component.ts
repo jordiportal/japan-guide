@@ -51,8 +51,8 @@ import { MatIconModule } from '@angular/material/icon';
 
     <div class="grid">
       <a class="card" *ngFor="let p of places()" [routerLink]="['/place', p.id]">
-        <div class="image" [class.placeholder]="!p.image_url">
-          <img *ngIf="p.image_url" [src]="p.image_url" alt="{{p.name_ca}}" loading="lazy" />
+        <div class="image" [class.placeholder]="!(p.image || p.image_url)">
+          <img *ngIf="p.image || p.image_url" [src]="p.image || p.image_url" alt="{{p.name_ca}}" loading="lazy" />
           <span *ngIf="!p.image_url" class="material-icons">image</span>
         </div>
         <div class="content">
@@ -82,8 +82,8 @@ import { MatIconModule } from '@angular/material/icon';
     @media (min-width: 600px) { .grid { grid-template-columns: repeat(3, 1fr); } }
     @media (min-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); } }
     .card { display: flex; flex-direction: column; text-decoration: none; color: inherit; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.08); border: 1px solid #eee; }
-    .image { width: 100%; height: 140px; display: grid; place-items: center; background: #f0f0f0; }
-    .image img { width: 100%; height: 100%; object-fit: cover; }
+    .image { width: 100%; height: 140px; display: grid; place-items: center; background: #f0f0f0; overflow: hidden; border-top-left-radius: 12px; border-top-right-radius: 12px; }
+    .image img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .image.placeholder { color: #9e9e9e; }
     .content { padding: 0.5rem 0.6rem 0.8rem; }
     h3 { margin: 0; font-size: 14px; line-height: 1.1; }
@@ -107,11 +107,12 @@ export class ListPageComponent {
   }
 
   refresh() {
-    const params = new URLSearchParams();
-    if (this.selectedFolderId) params.set('folderId', String(this.selectedFolderId));
-    if (this.query) params.set('q', this.query);
-    if (this.selectedTag) params.set('tag', this.selectedTag);
-    this.api.getPlaces(this.selectedFolderId, this.query).subscribe(p => this.places.set(p));
+    // reutilizamos getPlaces añadiendo soporte para tag en la URL
+    const url = new URL(`${this.api['base']}/places`);
+    if (this.selectedFolderId) url.searchParams.set('folderId', String(this.selectedFolderId));
+    if (this.query) url.searchParams.set('q', this.query);
+    if (this.selectedTag) url.searchParams.set('tag', this.selectedTag);
+    this.api['http'].get(url.toString()).subscribe((p: any) => this.places.set(p));
   }
 
   private debounceTimer?: any;

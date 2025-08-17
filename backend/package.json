@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "import:kml": "node src/import-kml.js \"../Mapa sense títol.kml.xml\""
+    "import:kml": "node src/import-kml.js \"../Mapa sense títol.kml.xml\"",
+    "images:fetch": "node src/fetch-images.js 5"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "dotenv": "^16.4.5",
     "node-fetch": "^3.3.2",
     "sanitize-html": "^2.17.0",
     "sqlite3": "^5.1.7",

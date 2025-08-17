@@ -17,6 +17,7 @@ export const db = new sqlite3.Database(dbPath);
 
 export function initializeSchema() {
   db.serialize(() => {
+    db.run('PRAGMA foreign_keys = ON;');
     db.run(`CREATE TABLE IF NOT EXISTS folders (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL
@@ -32,11 +33,14 @@ export function initializeSchema() {
       latitude REAL NOT NULL,
       longitude REAL NOT NULL,
       image_url TEXT,
+      local_image_path TEXT,
       source TEXT,
       created_at TEXT DEFAULT (datetime('now')),
       updated_at TEXT DEFAULT (datetime('now')),
       FOREIGN KEY(folder_id) REFERENCES folders(id)
     );`);
+    // Intento de migración suave por si la columna no existe
+    db.run(`ALTER TABLE places ADD COLUMN local_image_path TEXT`, () => {});
 
     db.run(`CREATE INDEX IF NOT EXISTS idx_places_folder ON places(folder_id);`);
     db.run(`CREATE INDEX IF NOT EXISTS idx_places_name_ca ON places(name_ca);`);
