@@ -7,6 +7,8 @@ services:
       - DB_PATH=/data/places.db
       - GOOGLE_CSE_KEY=${GOOGLE_CSE_KEY}
       - GOOGLE_CSE_CX=${GOOGLE_CSE_CX}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - SESSION_SECRET=${SESSION_SECRET}
     volumes:
       - ./data:/data
     ports:

@@ -42,13 +42,25 @@ export class ApiService {
   }
 
   updatePlace(id: number, data: { name_ca: string; description_ca?: string }) {
-    return this.http.put(`${this.base}/places/${id}`, data);
+    return this.http.put(`${this.base}/places/${id}`, data, { withCredentials: true });
   }
 
   uploadImage(id: number, file: File) {
     const form = new FormData();
     form.append('image', file);
-    return this.http.post<{ ok: boolean; image: string }>(`${this.base}/places/${id}/image`, form);
+    return this.http.post<{ ok: boolean; image: string }>(`${this.base}/places/${id}/image`, form, { withCredentials: true });
+  }
+
+  googleAuth(credential: string) {
+    return this.http.post<{ ok: boolean; user: any }>(`${this.base}/auth/google`, { credential }, { withCredentials: true });
+  }
+
+  getSession() {
+    return this.http.get<{ user: any }>(`${this.base}/auth/session`, { withCredentials: true });
+  }
+
+  logout() {
+    return this.http.post<{ ok: boolean }>(`${this.base}/auth/logout`, {}, { withCredentials: true });
   }
 }
 

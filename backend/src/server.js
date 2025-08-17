@@ -6,6 +6,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import multer from 'multer';
 import fs from 'fs';
+import session from 'express-session';
+import connectSqlite3 from 'connect-sqlite3';
+import { OAuth2Client } from 'google-auth-library';
 
 const app = express();
 app.set('trust proxy', true);
@@ -24,6 +27,14 @@ initializeSchema();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/media', express.static(path.resolve(__dirname, '../../data/images')));
+const SQLiteStore = connectSqlite3(session);
+app.use(session({
+  store: new SQLiteStore({ db: 'sessions.db', dir: path.resolve(__dirname, '../../data') }),
+  secret: process.env.SESSION_SECRET || 'devsecret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { sameSite: 'lax' }
+}));
 const uploadDir = path.resolve(__dirname, '../../data/images');
 fs.mkdirSync(uploadDir, { recursive: true });
 const storage = multer.diskStorage({
@@ -34,6 +45,31 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
+// Google OAuth minimal
+const googleClientId = process.env.GOOGLE_CLIENT_ID || '';
+const googleClient = new OAuth2Client(googleClientId);
+
+app.post('/api/auth/google', async (req, res) => {
+  try {
+    const { credential } = req.body || {};
+    if (!credential) return res.status(400).json({ error: 'credential required' });
+    const ticket = await googleClient.verifyIdToken({ idToken: credential, audience: googleClientId });
+    const payload = ticket.getPayload();
+    if (!payload) return res.status(401).json({ error: 'invalid token' });
+    req.session.user = { sub: payload.sub, email: payload.email, name: payload.name, picture: payload.picture };
+    res.json({ ok: true, user: req.session.user });
+  } catch (e) {
+    res.status(401).json({ error: 'auth failed' });
+  }
+});
+
+app.get('/api/auth/session', (req, res) => {
+  res.json({ user: req.session.user || null });
+});
+
+app.post('/api/auth/logout', (req, res) => {
+  req.session.destroy(() => res.json({ ok: true }));
+});
 
 app.get('/__health', (req, res) => {
   res.json({ ok: true, cwd: process.cwd() });

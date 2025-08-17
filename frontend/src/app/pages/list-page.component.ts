@@ -21,6 +21,10 @@ import * as L from 'leaflet';
     <mat-toolbar color="primary" class="topbar">
       <span class="title">Mapa del Japó</span>
       <span class="spacer"></span>
+      <button class="refresh" *ngIf="!user" (click)="login()" aria-label="Iniciar sessió">
+        <span class="material-icons">login</span>
+      </button>
+      <img *ngIf="user" [src]="user.picture" class="avatar" alt="user" (click)="logout()" />
       <button class="refresh" (click)="toggleMode()" aria-label="Canviar vista">
         <span class="material-icons">{{ mapMode ? 'view_module' : 'map' }}</span>
       </button>
@@ -77,6 +81,7 @@ import * as L from 'leaflet';
     .title { font-weight: 600; }
     .spacer { flex: 1 1 auto; }
     .refresh { background: transparent; border: 0; color: white; cursor: pointer; }
+    .avatar { width: 28px; height: 28px; border-radius: 50%; margin-right: 6px; cursor: pointer; }
     .search { padding: 0.5rem 0.75rem; background: #fafafa; position: sticky; top: 56px; z-index: 9; }
     .search-field { width: 100%; }
     .clear { background: transparent; border: 0; cursor: pointer; }
@@ -113,11 +118,13 @@ export class ListPageComponent {
   mapMode = false;
   private map?: L.Map;
   private markers: L.Marker[] = [];
+  user: any = null;
 
   constructor() {
     this.api.getFolders().subscribe(f => this.folders.set(f));
     this.api.getTags().subscribe(t => this.tags.set(t));
     this.refresh();
+    this.api.getSession().subscribe(s => this.user = s.user);
   }
 
   refresh() {
@@ -205,6 +212,27 @@ export class ListPageComponent {
       this.map = undefined;
       this.markers = [];
     }
+  }
+
+  login() {
+    const meta = document.querySelector('meta[name="google-client-id"]') as HTMLMetaElement;
+    const client_id = meta?.content || '';
+    // One-tap fallback: prompt code via google API
+    // If not available, show prompt to paste credential
+    /* global google */
+    const w: any = window as any;
+    if (w.google && client_id) {
+      w.google.accounts.id.initialize({ client_id, callback: (resp: any) => this.api.googleAuth(resp.credential).subscribe(r => this.user = r.user) });
+      w.google.accounts.id.renderButton(document.body, { theme: 'outline', size: 'small' });
+      w.google.accounts.id.prompt();
+    } else {
+      const cred = prompt('Enganxa ID token de Google');
+      if (cred) this.api.googleAuth(cred).subscribe(r => this.user = r.user);
+    }
+  }
+
+  logout() {
+    this.api.logout().subscribe(() => this.user = null);
   }
 }
 

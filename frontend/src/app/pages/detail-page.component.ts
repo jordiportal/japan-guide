@@ -13,7 +13,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   <div class="container" *ngIf="place() as p">
     <div class="header">
       <a routerLink="/">← Tornar</a>
-      <button class="icon-btn" (click)="toggleEdit()" aria-label="Editar">
+      <button class="icon-btn" *ngIf="user" (click)="toggleEdit()" aria-label="Editar">
         <span class="material-icons">{{ editMode ? 'close' : 'edit' }}</span>
       </button>
     </div>
@@ -66,10 +66,12 @@ export class DetailPageComponent {
   edit: { name_ca: string; description_ca?: string } = { name_ca: '' };
   file?: File;
   editMode = false;
+  user: any = null;
 
   constructor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.api.getPlace(id).subscribe(p => { this.place.set(p); this.edit = { name_ca: p.name_ca, description_ca: p.description_ca || '' }; });
+    this.api.getSession().subscribe(s => this.user = s.user);
   }
 
   safeMapUrl(lat: number, lng: number): SafeResourceUrl {
