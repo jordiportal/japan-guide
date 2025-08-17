@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
+app.set('trust proxy', true);
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
@@ -57,7 +58,12 @@ app.get('/api/places', async (req, res) => {
     if (where.length) sql += ' WHERE ' + where.join(' AND ');
     sql += ' ORDER BY p.name_ca';
     const rows = await all(db, sql, params);
-    res.json(rows);
+    const base = `${req.protocol}://${req.get('host')}`;
+    const withImages = rows.map(r => ({
+      ...r,
+      image: r.local_image_path ? `${base}/media/${path.basename(r.local_image_path)}` : r.image_url || null,
+    }));
+    res.json(withImages);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -68,7 +74,8 @@ app.get('/api/places/:id', async (req, res) => {
     const row = await get(db, 'SELECT * FROM places WHERE id = ?', [req.params.id]);
     if (!row) return res.status(404).json({ error: 'Not found' });
     const tags = await all(db, `SELECT t.* FROM tags t JOIN place_tags pt ON pt.tag_id = t.id WHERE pt.place_id = ? ORDER BY t.name`, [req.params.id]);
-    const image = row.local_image_path ? `/media/${path.basename(row.local_image_path)}` : row.image_url || null;
+    const base = `${req.protocol}://${req.get('host')}`;
+    const image = row.local_image_path ? `${base}/media/${path.basename(row.local_image_path)}` : row.image_url || null;
     res.json({ ...row, tags, image });
   } catch (e) {
     res.status(500).json({ error: e.message });
