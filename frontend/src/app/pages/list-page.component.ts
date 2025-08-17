@@ -1,6 +1,6 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ApiService, Folder, Place } from '../services/api.service';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-list-page',
@@ -20,6 +21,9 @@ import { MatIconModule } from '@angular/material/icon';
     <mat-toolbar color="primary" class="topbar">
       <span class="title">Mapa del Japó</span>
       <span class="spacer"></span>
+      <button class="refresh" (click)="toggleMode()" aria-label="Canviar vista">
+        <span class="material-icons">{{ mapMode ? 'view_module' : 'map' }}</span>
+      </button>
       <button class="refresh" (click)="refresh()" aria-label="Actualitzar">
         <span class="material-icons">refresh</span>
       </button>
@@ -49,7 +53,7 @@ import { MatIconModule } from '@angular/material/icon';
       </div>
     </div>
 
-    <div class="grid">
+    <div class="grid" *ngIf="!mapMode">
       <a class="card" *ngFor="let p of places()" [routerLink]="['/place', p.id]">
         <div class="image" [class.placeholder]="!(p.image || p.image_url)">
           <img *ngIf="p.image || p.image_url" [src]="p.image || p.image_url" alt="{{p.name_ca}}" loading="lazy" />
@@ -60,6 +64,10 @@ import { MatIconModule } from '@angular/material/icon';
           <p class="desc" *ngIf="p.description_ca">{{ p.description_ca }}</p>
         </div>
       </a>
+    </div>
+
+    <div *ngIf="mapMode" class="map-wrap">
+      <div id="leaflet-map" class="map"></div>
     </div>
   </div>
   `,
@@ -89,16 +97,22 @@ import { MatIconModule } from '@angular/material/icon';
     h3 { margin: 0; font-size: 14px; line-height: 1.1; }
     small { color: #666; font-weight: 400; }
     .desc { margin: 0.25rem 0 0; color: #555; font-size: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .map-wrap { height: calc(100dvh - 160px); padding: 0.5rem; }
+    .map { height: 100%; border-radius: 12px; overflow: hidden; }
   `]
 })
 export class ListPageComponent {
   private api = inject(ApiService);
+  private router = inject(Router);
   folders = signal<Folder[]>([]);
   places = signal<Place[]>([]);
   tags = signal<{ id: number; name: string; color: string }[]>([]);
   selectedFolderId?: number;
   query = '';
   selectedTag?: string;
+  mapMode = false;
+  private map?: L.Map;
+  private markers: L.Marker[] = [];
 
   constructor() {
     this.api.getFolders().subscribe(f => this.folders.set(f));
@@ -112,7 +126,10 @@ export class ListPageComponent {
     if (this.selectedFolderId) url.searchParams.set('folderId', String(this.selectedFolderId));
     if (this.query) url.searchParams.set('q', this.query);
     if (this.selectedTag) url.searchParams.set('tag', this.selectedTag);
-    this.api['http'].get(url.toString()).subscribe((p: any) => this.places.set(p));
+    this.api['http'].get(url.toString()).subscribe((p: any) => {
+      this.places.set(p);
+      if (this.mapMode) setTimeout(() => this.drawMarkers(), 0);
+    });
   }
 
   private debounceTimer?: any;
@@ -129,6 +146,65 @@ export class ListPageComponent {
   selectTag(name?: string) {
     this.selectedTag = name;
     this.refresh();
+  }
+
+  toggleMode() {
+    this.mapMode = !this.mapMode;
+    if (this.mapMode) {
+      setTimeout(() => this.initMap(), 0);
+    } else {
+      this.destroyMap();
+    }
+  }
+
+  private initMap() {
+    if (this.map) return;
+    this.map = L.map('leaflet-map').setView([35.68, 139.76], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(this.map);
+    this.drawMarkers();
+  }
+
+  private drawMarkers() {
+    if (!this.map) return;
+    this.markers.forEach(m => m.remove());
+    this.markers = [];
+    const bounds = L.latLngBounds([]);
+    for (const p of this.places()) {
+      const marker = L.marker([p.latitude, p.longitude]).addTo(this.map!);
+      const img = (p.image || p.image_url) ? `<img src="${p.image || p.image_url}" alt="${p.name_ca}">` : `<div class="img ph"></div>`;
+      const kanji = p.name_ja ? `（${p.name_ja}）` : '';
+      const desc = p.description_ca ? p.description_ca : '';
+      const html = `
+        <div class="poi-card">
+          <div class="img-wrap">${img}</div>
+          <div class="info">
+            <div class="title">${p.name_ca} <small>${kanji}</small></div>
+            <div class="desc">${desc}</div>
+            <button class="goto" data-id="${p.id}">Veure</button>
+          </div>
+        </div>`;
+      marker.bindPopup(html, { maxWidth: 280 });
+      marker.on('popupopen', () => {
+        const el = document.querySelector(`.leaflet-popup .goto[data-id='${p.id}']`);
+        if (el) {
+          el.addEventListener('click', () => this.router.navigate(['/place', p.id]), { once: true });
+        }
+      });
+      this.markers.push(marker);
+      bounds.extend([p.latitude, p.longitude]);
+    }
+    if (bounds.isValid()) this.map.fitBounds(bounds.pad(0.1));
+  }
+
+  private destroyMap() {
+    if (this.map) {
+      this.map.remove();
+      this.map = undefined;
+      this.markers = [];
+    }
   }
 }
 
