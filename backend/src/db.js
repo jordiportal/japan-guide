@@ -60,6 +60,16 @@ export function initializeSchema() {
     );`);
 
     db.run(`CREATE INDEX IF NOT EXISTS idx_place_tags_tag ON place_tags(tag_id);`);
+
+    // Votos por dispositivo
+    db.run(`CREATE TABLE IF NOT EXISTS votes (
+      place_id INTEGER NOT NULL,
+      device_id TEXT NOT NULL,
+      created_at TEXT DEFAULT (datetime('now')),
+      PRIMARY KEY(place_id, device_id),
+      FOREIGN KEY(place_id) REFERENCES places(id) ON DELETE CASCADE
+    );`);
+    db.run(`CREATE INDEX IF NOT EXISTS idx_votes_place ON votes(place_id);`);
   });
 }
 

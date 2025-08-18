@@ -21,10 +21,9 @@ import * as L from 'leaflet';
     <mat-toolbar color="primary" class="topbar">
       <span class="title">Mapa del Japó</span>
       <span class="spacer"></span>
-      <button class="refresh" *ngIf="!user" (click)="login()" aria-label="Iniciar sessió">
-        <span class="material-icons">login</span>
+      <button class="refresh" (click)="openNew()" aria-label="Afegir">
+        <span class="material-icons">add</span>
       </button>
-      <img *ngIf="user" [src]="user.picture" class="avatar" alt="user" (click)="logout()" />
       <button class="refresh" (click)="toggleMode()" aria-label="Canviar vista">
         <span class="material-icons">{{ mapMode ? 'view_module' : 'map' }}</span>
       </button>
@@ -42,6 +41,26 @@ import * as L from 'leaflet';
         </button>
       </mat-form-field>
     </div>
+
+    <form *ngIf="creating" class="create-form" (ngSubmit)="create()">
+      <div class="create-grid">
+        <input type="text" placeholder="Títol" [(ngModel)]="newPlace.name_ca" name="name_ca" required>
+        <input type="text" placeholder="Títol en japonès (opcional)" [(ngModel)]="newPlace.name_ja" name="name_ja">
+        <textarea rows="2" placeholder="Descripció (opcional)" [(ngModel)]="newPlace.description_ca" name="description_ca"></textarea>
+        <div class="row">
+          <input type="number" step="any" placeholder="Latitud" [(ngModel)]="newPlace.latitude" name="latitude" required>
+          <input type="number" step="any" placeholder="Longitud" [(ngModel)]="newPlace.longitude" name="longitude" required>
+        </div>
+        <div class="row">
+          <select [(ngModel)]="newPlace.folder_id" name="folder_id">
+            <option [ngValue]="undefined">Sense carpeta</option>
+            <option *ngFor="let f of folders()" [ngValue]="f.id">{{ f.name }}</option>
+          </select>
+          <button type="submit">Afegir</button>
+          <button type="button" (click)="creating=false">Cancel·lar</button>
+        </div>
+      </div>
+    </form>
 
     <div class="folders">
       <mat-chip-listbox aria-label="Carpetes" class="chips" [multiple]="false">
@@ -65,6 +84,10 @@ import * as L from 'leaflet';
         </div>
         <div class="content">
           <h3>{{ p.name_ca }} <small *ngIf="p.name_ja">（{{ p.name_ja }}）</small></h3>
+          <div class="meta">
+            <span class="material-icons heart">favorite</span>
+            <span>{{ p.votes || 0 }}</span>
+          </div>
           <p class="desc" *ngIf="p.description_ca">{{ p.description_ca }}</p>
         </div>
       </a>
@@ -83,6 +106,10 @@ import * as L from 'leaflet';
     .refresh { background: transparent; border: 0; color: white; cursor: pointer; }
     .avatar { width: 28px; height: 28px; border-radius: 50%; margin-right: 6px; cursor: pointer; }
     .search { padding: 0.5rem 0.75rem; background: #fafafa; position: sticky; top: 56px; z-index: 9; }
+    .create-form { padding: 0.5rem 0.75rem; }
+    .create-grid { display: grid; gap: 0.5rem; }
+    .create-grid input, .create-grid textarea, .create-grid select { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ccc; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
     .search-field { width: 100%; }
     .clear { background: transparent; border: 0; cursor: pointer; }
     .folders { padding: 0 0.5rem 0.5rem; overflow-x: auto; }
@@ -99,6 +126,8 @@ import * as L from 'leaflet';
     .image img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .image.placeholder { color: #9e9e9e; }
     .content { padding: 0.5rem 0.6rem 0.8rem; }
+    .meta { display: inline-flex; align-items: center; gap: 4px; color: #e53935; font-size: 12px; }
+    .heart { font-size: 16px; vertical-align: middle; }
     h3 { margin: 0; font-size: 14px; line-height: 1.1; }
     small { color: #666; font-weight: 400; }
     .desc { margin: 0.25rem 0 0; color: #555; font-size: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -118,22 +147,17 @@ export class ListPageComponent {
   mapMode = false;
   private map?: L.Map;
   private markers: L.Marker[] = [];
-  user: any = null;
+  // Edición pública: ocultamos login/logout
 
   constructor() {
     this.api.getFolders().subscribe(f => this.folders.set(f));
     this.api.getTags().subscribe(t => this.tags.set(t));
     this.refresh();
-    this.api.getSession().subscribe(s => this.user = s.user);
+    // No comprobamos sesión
   }
 
   refresh() {
-    // reutilizamos getPlaces añadiendo soporte para tag en la URL
-    const url = new URL(`${this.api['base']}/places`);
-    if (this.selectedFolderId) url.searchParams.set('folderId', String(this.selectedFolderId));
-    if (this.query) url.searchParams.set('q', this.query);
-    if (this.selectedTag) url.searchParams.set('tag', this.selectedTag);
-    this.api['http'].get(url.toString()).subscribe((p: any) => {
+    this.api.getPlaces(this.selectedFolderId, this.query, this.selectedTag).subscribe((p: any) => {
       this.places.set(p);
       if (this.mapMode) setTimeout(() => this.drawMarkers(), 0);
     });
@@ -214,26 +238,31 @@ export class ListPageComponent {
     }
   }
 
-  login() {
-    const meta = document.querySelector('meta[name="google-client-id"]') as HTMLMetaElement;
-    const client_id = meta?.content || '';
-    // One-tap fallback: prompt code via google API
-    // If not available, show prompt to paste credential
-    /* global google */
-    const w: any = window as any;
-    if (w.google && client_id) {
-      w.google.accounts.id.initialize({ client_id, callback: (resp: any) => this.api.googleAuth(resp.credential).subscribe(r => this.user = r.user) });
-      w.google.accounts.id.renderButton(document.body, { theme: 'outline', size: 'small' });
-      w.google.accounts.id.prompt();
-    } else {
-      const cred = prompt('Enganxa ID token de Google');
-      if (cred) this.api.googleAuth(cred).subscribe(r => this.user = r.user);
-    }
+  creating = false;
+  newPlace: { name_ca: string; name_ja?: string; description_ca?: string; latitude: number | null; longitude: number | null; folder_id?: number } = {
+    name_ca: '', name_ja: '', description_ca: '', latitude: null, longitude: null
+  };
+
+  openNew() { this.creating = true; }
+
+  create() {
+    if (!this.newPlace.name_ca || this.newPlace.latitude == null || this.newPlace.longitude == null) return;
+    const payload = {
+      name_ca: this.newPlace.name_ca,
+      name_ja: this.newPlace.name_ja || undefined,
+      description_ca: this.newPlace.description_ca || undefined,
+      latitude: Number(this.newPlace.latitude),
+      longitude: Number(this.newPlace.longitude),
+      folder_id: this.newPlace.folder_id
+    } as any;
+    this.api.createPlace(payload).subscribe(p => {
+      this.creating = false;
+      this.newPlace = { name_ca: '', name_ja: '', description_ca: '', latitude: null, longitude: null };
+      this.refresh();
+    });
   }
 
-  logout() {
-    this.api.logout().subscribe(() => this.user = null);
-  }
+  // Sin login/logout
 }
 
 

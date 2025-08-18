@@ -15,21 +15,23 @@ export interface Place {
   image_url?: string;
   tags?: { id: number; name: string; color: string }[];
   image?: string;
+  votes?: number;
 }
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private http = inject(HttpClient);
-  private base = 'http://localhost:3000/api';
+  private base = '/api';
 
   getFolders(): Observable<Folder[]> {
     return this.http.get<Folder[]>(`${this.base}/folders`);
   }
 
-  getPlaces(folderId?: number, q?: string): Observable<Place[]> {
+  getPlaces(folderId?: number, q?: string, tag?: string): Observable<Place[]> {
     const params: any = {};
     if (folderId) params.folderId = folderId;
     if (q) params.q = q;
+    if (tag) params.tag = tag;
     return this.http.get<Place[]>(`${this.base}/places`, { params });
   }
 
@@ -39,6 +41,14 @@ export class ApiService {
 
   getTags(): Observable<{ id: number; name: string; color: string }[]> {
     return this.http.get<{ id: number; name: string; color: string }[]>(`${this.base}/tags`);
+  }
+
+  createPlace(data: { name_ca: string; description_ca?: string; latitude: number; longitude: number; folder_id?: number; name_ja?: string; }) {
+    return this.http.post<Place>(`${this.base}/places`, data, { withCredentials: true });
+  }
+
+  votePlace(id: number, deviceId: string) {
+    return this.http.post<{ ok: boolean; votes: number }>(`${this.base}/places/${id}/vote`, { deviceId });
   }
 
   updatePlace(id: number, data: { name_ca: string; description_ca?: string }) {

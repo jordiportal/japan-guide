@@ -13,11 +13,16 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   <div class="container" *ngIf="place() as p">
     <div class="header">
       <a routerLink="/">← Tornar</a>
-      <button class="icon-btn" *ngIf="user" (click)="toggleEdit()" aria-label="Editar">
+      <button class="icon-btn" (click)="toggleEdit()" aria-label="Editar">
         <span class="material-icons">{{ editMode ? 'close' : 'edit' }}</span>
       </button>
     </div>
-    <h1>{{ p.name_ca }} <small *ngIf="p.name_ja">（{{ p.name_ja }}）</small></h1>
+    <h1>{{ p.name_ca }} <small *ngIf="p.name_ja">（{{ p.name_ja }}）</small>
+      <button class="heart" (click)="vote(p.id)" aria-label="M'agrada">
+        <span class="material-icons">favorite</span>
+        <span class="count">{{ p.votes || 0 }}</span>
+      </button>
+    </h1>
     <img *ngIf="p.image || p.image_url" [src]="p.image || p.image_url" class="hero" alt="{{p.name_ca}}" />
     <p *ngIf="p.description_ca">{{ p.description_ca }}</p>
     <p class="coords">Lat {{ p.latitude }}, Lng {{ p.longitude }}</p>
@@ -66,12 +71,12 @@ export class DetailPageComponent {
   edit: { name_ca: string; description_ca?: string } = { name_ca: '' };
   file?: File;
   editMode = false;
-  user: any = null;
+  // Edición pública; no dependemos de autenticación
 
   constructor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.api.getPlace(id).subscribe(p => { this.place.set(p); this.edit = { name_ca: p.name_ca, description_ca: p.description_ca || '' }; });
-    this.api.getSession().subscribe(s => this.user = s.user);
+    // Edición pública: no comprobamos sesión
   }
 
   safeMapUrl(lat: number, lng: number): SafeResourceUrl {
@@ -104,6 +109,22 @@ export class DetailPageComponent {
   }
 
   toggleEdit() { this.editMode = !this.editMode; }
+
+  private getDeviceId(): string {
+    let id = localStorage.getItem('deviceId');
+    if (!id) {
+      id = Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem('deviceId', id);
+    }
+    return id;
+  }
+
+  vote(id: number) {
+    const deviceId = this.getDeviceId();
+    this.api.votePlace(id, deviceId).subscribe(r => {
+      this.place.update(cur => cur ? ({ ...cur, votes: r.votes } as any) : cur);
+    });
+  }
 }
 
 

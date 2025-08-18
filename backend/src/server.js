@@ -9,6 +9,9 @@ import fs from 'fs';
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
 import { OAuth2Client } from 'google-auth-library';
+import { importKml } from './import-kml.js';
+import { fileURLToPath as furl } from 'url';
+import { spawn } from 'child_process';
 
 const app = express();
 app.set('trust proxy', true);
@@ -45,31 +48,14 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
-// Google OAuth minimal
+// Google OAuth minimal (pero no requerido para edición pública)
 const googleClientId = process.env.GOOGLE_CLIENT_ID || '';
 const googleClient = new OAuth2Client(googleClientId);
 
-app.post('/api/auth/google', async (req, res) => {
-  try {
-    const { credential } = req.body || {};
-    if (!credential) return res.status(400).json({ error: 'credential required' });
-    const ticket = await googleClient.verifyIdToken({ idToken: credential, audience: googleClientId });
-    const payload = ticket.getPayload();
-    if (!payload) return res.status(401).json({ error: 'invalid token' });
-    req.session.user = { sub: payload.sub, email: payload.email, name: payload.name, picture: payload.picture };
-    res.json({ ok: true, user: req.session.user });
-  } catch (e) {
-    res.status(401).json({ error: 'auth failed' });
-  }
-});
-
-app.get('/api/auth/session', (req, res) => {
-  res.json({ user: req.session.user || null });
-});
-
-app.post('/api/auth/logout', (req, res) => {
-  req.session.destroy(() => res.json({ ok: true }));
-});
+// Endpoints de auth mantienen compatibilidad pero no condicionan edición
+app.post('/api/auth/google', async (req, res) => res.json({ ok: true, user: null }));
+app.get('/api/auth/session', (req, res) => res.json({ user: null }));
+app.post('/api/auth/logout', (req, res) => res.json({ ok: true }));
 
 app.get('/__health', (req, res) => {
   res.json({ ok: true, cwd: process.cwd() });
@@ -98,7 +84,7 @@ app.get('/api/places', async (req, res) => {
   try {
     const { folderId, q, tag } = req.query;
     const params = [];
-    let sql = 'SELECT p.* FROM places p';
+    let sql = `SELECT p.*, (SELECT COUNT(1) FROM votes v WHERE v.place_id = p.id) AS votes FROM places p`;
     const where = [];
     if (tag) { sql += ' JOIN place_tags pt ON pt.place_id = p.id JOIN tags t ON t.id = pt.tag_id'; where.push('t.name = ?'); params.push(String(tag)); }
     if (folderId) { where.push('p.folder_id = ?'); params.push(folderId); }
@@ -117,14 +103,50 @@ app.get('/api/places', async (req, res) => {
   }
 });
 
+app.post('/api/places', async (req, res) => {
+  try {
+    const { name_ca, description_ca, latitude, longitude, folder_id, name_ja } = req.body || {};
+    if (!name_ca) return res.status(400).json({ error: 'name_ca required' });
+    const lat = Number(latitude);
+    const lng = Number(longitude);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return res.status(400).json({ error: 'valid latitude and longitude required' });
+    const folderId = folder_id ? Number(folder_id) : null;
+    const inserted = await run(db,
+      `INSERT INTO places (name_ca, name_ja, description_ca, description_ja, folder_id, latitude, longitude, image_url, source)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [name_ca, name_ja || '', description_ca || '', '', folderId, lat, lng, null, 'manual']
+    );
+    const row = await get(db, 'SELECT * FROM places WHERE id = ?', [inserted.lastID]);
+    const base = `${req.protocol}://${req.get('host')}`;
+    const image = row.local_image_path ? `${base}/media/${path.basename(row.local_image_path)}` : row.image_url || null;
+    res.status(201).json({ ...row, image });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 app.get('/api/places/:id', async (req, res) => {
   try {
-    const row = await get(db, 'SELECT * FROM places WHERE id = ?', [req.params.id]);
+    const row = await get(db, `SELECT p.*, (SELECT COUNT(1) FROM votes v WHERE v.place_id = p.id) AS votes FROM places p WHERE id = ?`, [req.params.id]);
     if (!row) return res.status(404).json({ error: 'Not found' });
     const tags = await all(db, `SELECT t.* FROM tags t JOIN place_tags pt ON pt.tag_id = t.id WHERE pt.place_id = ? ORDER BY t.name`, [req.params.id]);
     const base = `${req.protocol}://${req.get('host')}`;
     const image = row.local_image_path ? `${base}/media/${path.basename(row.local_image_path)}` : row.image_url || null;
     res.json({ ...row, tags, image });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Votar (like)
+app.post('/api/places/:id/vote', async (req, res) => {
+  try {
+    const placeId = Number(req.params.id);
+    const deviceId = String(req.body?.deviceId || '').slice(0, 128);
+    if (!deviceId) return res.status(400).json({ error: 'deviceId required' });
+    await run(db, `INSERT OR IGNORE INTO votes(place_id, device_id) VALUES (?, ?)`, [placeId, deviceId]);
+    const row = await get(db, `SELECT COUNT(1) as votes FROM votes WHERE place_id = ?`, [placeId]);
+    res.json({ ok: true, votes: row?.votes || 0 });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -177,6 +199,35 @@ app.post('/api/places/:id/tags/:tagName', async (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`API escuchando en http://localhost:${port}`));
+app.listen(port, async () => {
+  console.log(`API escuchando en puerto ${port}`);
+  try {
+    // Auto-inicialización si la base está vacía
+    const count = await get(db, 'SELECT COUNT(1) as c FROM places');
+    if (!count || !count.c) {
+      console.log('Base de datos vacía: iniciando importación inicial KML e imágenes...');
+      const kmlPath = process.env.KML_PATH
+        ? path.resolve(process.cwd(), process.env.KML_PATH)
+        : path.resolve(process.cwd(), 'kml.xml');
+      try {
+        await importKml(kmlPath);
+        console.log('Importación KML completada');
+      } catch (e) {
+        console.error('Fallo importando KML:', e.message);
+      }
+      // Lanzar carga de imágenes en background (no bloquea)
+      try {
+        const script = path.resolve(__dirname, './fetch-images.js');
+        const child = spawn(process.execPath, [script, '5'], { stdio: 'ignore', detached: true });
+        child.unref();
+        console.log('Carga de imágenes lanzada en background');
+      } catch (e) {
+        console.error('No se pudo lanzar la carga de imágenes:', e.message);
+      }
+    }
+  } catch (e) {
+    console.error('Error en auto-inicialización:', e.message);
+  }
+});
 
 
