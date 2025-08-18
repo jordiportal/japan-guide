@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   backend:
-    image: registry.khlloreda.es/japan-backend:20250818151218-6954dbd
+    image: registry.khlloreda.es/japan-backend:1.0.1
     environment:
       - PORT=3000
       - DB_PATH=/data/places.db
@@ -14,7 +14,7 @@ services:
     ports:
       - "3000:3000"
   frontend:
-    image: registry.khlloreda.es/japan-frontend:20250818151218-6954dbd
+    image: registry.khlloreda.es/japan-frontend:1.0.1
     depends_on:
       - backend
     ports:
